@@ -6,49 +6,48 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="index.css">
 </head>
 
 <body>
     <input type="text" id="buscador" placeholder="Pokemon">
-    <script src="index.js"></script>
     <button onclick="findPokemon()">Buscar</button>
-    <div class="informacio">
-        <div id="name"></div>
-        <div id="types"></div>
-        <div class="compareImages">
-            <img height="167"
-                src="https://st.depositphotos.com/1000833/3021/i/950/depositphotos_30215223-stock-photo-tall-man-standing.jpg"
-                alt="">
-            <img id="image" height="100" src="" alt="" srcset="">
+    <div class="card">
+        <div class="flip-card">
+            <div id="flip-card-inner">
+                <div class="flip-card-front">
+                    <div class="images">
+                        <img class="image" id="image-normal" height="100" src="" alt="" srcset="" loading="lazy">
+                        <img class="image" id="image-shiny" height="100" src="" alt="" srcset="" loading="lazy">
+                    </div>
+                </div>
+                <div class="flip-card-back">
+                    <div class="stadystics">
+                        <div class="stadystic">HP: <span id="hp"></span></div>
+                        <div class="stadystic">Attack: <span id="attack"></span></div>
+                        <div class="stadystic">Defense: <span id="defense"></span></div>
+                        <div class="stadystic">Sp. Attack: <span id="spAttack"></span></div>
+                        <div class="stadystic">SP. Defense: <span id="spDefense"></span></div>
+                        <div class="stadystic">Speed: <span id="speed"></span></div>
+                        <div class="stadystic">Total: <span id="total"></span></div>
+                        <!-- <div class="stadystic">Person height: 167 Pokemon height: <span id="pokeHeight"></span></div>
+                        -->
+                    </div>
+                </div>
+            </div>
         </div>
-        <div></div>
-    </div>
-    <div ></div>
-    <div class="stadystics">
-        <div class="stadystic">HP: <span id="hp"></span></div>
-        <div class="stadystic">Attack: <span id="attack"></span></div>
-        <div class="stadystic">Defense: <span id="defense"></span></div>
-        <div class="stadystic">Sp. Attack: <span id="spAttack"></span></div>
-        <div class="stadystic">SP. Defense: <span id="spDefense"></span></div>
-        <div class="stadystic">Speed: <span id="speed"></span></div>
-        <div class="stadystic">Total: <span id="total"></span></div>
-        <div class="stadystic">Person height: 167 Pokemon height: <span id="pokeHeight"></span></div>
-        
-
+        <div class="informacio">
+            <div id="name"></div>
+            <div class="buttons">
+                <button onclick="pokeBack()">Atras</button>
+                <button onclick="pokeNext()">Siguiente</button>
+                <button onclick="flipCard()">Caractericas</button>
+            </div>
+        </div>
+       
     </div>
 
-    <button onclick="pokeBack()">Atras</button>
-    <button onclick="pokeNext()">Siguiente</button>
-
-    <style>
-        .informacio {
-            font-size: 50px;
-        }
-
-        .compareImages {
-            display: flex;
-        }
-    </style>
+    <script src="index.js"></script>
 </body>
 
 </html>
