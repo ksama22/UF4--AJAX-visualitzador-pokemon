@@ -5,19 +5,29 @@ function findPokemon() {
     callApi(input.toLowerCase())
 }
 
-function callApi(name, url = "https://pokeapi.co/api/v2/pokemon/") {
+function callApi(name) {
     var xhr = new XMLHttpRequest();
     xhr.addEventListener("readystatechange", function () {
         if (this.readyState === this.DONE) {
-            let resultatOBJ = JSON.parse(this.responseText);
-            console.log(resultatOBJ);
-            refreshViewPokemon(resultatOBJ);
-            refreshViewStadystics(resultatOBJ);
-            pokeIndex = resultatOBJ.id;
-            console.log(pokeIndex);
+            if (this.status === 200) {
+                let resultatOBJ = JSON.parse(this.responseText);
+                refreshViewPokemon(resultatOBJ);
+                refreshViewStadystics(resultatOBJ);
+                refreshViewsprites(resultatOBJ);
+                refreshSizePlayer(resultatOBJ);
+                pokeIndex = resultatOBJ.id;
+            }
+
+            if (this.status !== 200) {
+                document.getElementById("name").innerText = "Missing No.";
+                document.getElementById("image-normal").src = "https://upload.wikimedia.org/wikipedia/commons/6/62/MissingNo.png";
+                document.getElementById("image-shiny").src = "https://upload.wikimedia.org/wikipedia/commons/6/62/MissingNo.png";
+            }
+
+
         }
     });
-    xhr.open("GET", url + name);
+    xhr.open("GET", "https://pokeapi.co/api/v2/pokemon/" + name);
     xhr.send(null);
 }
 
@@ -69,8 +79,32 @@ function refreshViewStadystics(poke) {
     document.getElementById("total").innerText = poke.stats[0].base_stat + poke.stats[1].base_stat + poke.stats[2].base_stat + poke.stats[3].base_stat + poke.stats[4].base_stat + poke.stats[5].base_stat;
 }
 
+function refreshViewsprites(poke) {
+    document.getElementById("sprite-back").src = poke.sprites.back_default;
+    document.getElementById("sprite-front").src = poke.sprites.front_default;
+    document.getElementById("sprite-back-shiny").src = poke.sprites.back_shiny;
+    document.getElementById("sprite-front-shiny").src = poke.sprites.front_shiny;
+}
+
 function flipCard() {
     let ncard = document.getElementById("flip-card-inner");
     ncard.style.transform = ncard.style.transform ? "" : "rotateY(180deg)"
-    document.getElementById("flip-card-inner")
+    //document.getElementById("flip-card-inner")
+}
+
+function refreshSizePlayer(poke) {
+    let personSize = poke.height*10;
+    if(personSize>=150){
+        personSize  = 150;
+    }
+    document.getElementById("poke-sized").src = poke.sprites.other["official-artwork"].front_default;
+    document.getElementById("poke-sized").style.height = `${personSize}px`
+}
+
+
+function pressEnter(event){
+    console.log(event.keyCode);
+    if(event.keyCode===13){
+        findPokemon()
+    }
 }
